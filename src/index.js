@@ -598,3 +598,7 @@ bot.on("callback_query", async (ctx) => {
 });
 
 bot.catch(handleError);
+
+app.listen(process.env.PORT || 3000, () => {
+    console.log("Ready")
+})
