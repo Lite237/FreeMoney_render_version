@@ -16,12 +16,12 @@ import path from "path";
 dotenv.config();
 
 const BOT_TOKEN = process.env.BOT_TOKEN || "";
-const ENVIRONMENT = process.env.NODE_ENV || "";
+// const ENVIRONMENT = process.env.NODE_ENV || "";
 
 const bot = new Telegraf(BOT_TOKEN);
 const app = express();
 
-// app.use(await bot.createWebhook({ domain: process.env.webhookDomain }));
+app.use(await bot.createWebhook({ domain: process.env.webhookDomain }));
 
 app.get("/", (req, res) => {
     res.send("Bot started");
@@ -468,7 +468,6 @@ bot.on(message("text"), async (ctx) => {
 })
 
 bot.on("chat_join_request", async (ctx) => {
-    return;
     const taskId = await prisma.task.findFirst({
         where: {
             chatId: ctx.chatJoinRequest.chat.id.toString()
@@ -631,5 +630,3 @@ bot.catch(handleError);
 app.listen(process.env.PORT || 3000, () => {
     console.log("Ready")
 })
-
-bot.launch()
