@@ -465,7 +465,6 @@ bot.on(message("text"), async (ctx) => {
 })
 
 bot.on("chat_join_request", async (ctx) => {
-    return;
     const taskId = await prisma.task.findFirst({
         where: {
             chatId: ctx.chatJoinRequest.chat.id.toString()
