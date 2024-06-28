@@ -10,6 +10,9 @@ import { accountValid } from "./utils/checkVerify.js";
 import prisma from "./config/prisma.js"
 import keyboard from "./config/keyboard.js";
 
+import { promises as fsPromises } from "fs"
+import path from "path";
+
 dotenv.config();
 
 const BOT_TOKEN = process.env.BOT_TOKEN || "";
@@ -78,7 +81,7 @@ bot.start(async (ctx) => {
     const isAccountValid = await accountValid(ctx);
 
     if (!isAccountValid) {
-        await ctx.reply(lang[language_code].start(ctx), {
+        await ctx.reply(await lang[language_code].start(ctx), {
             reply_markup: {
                 inline_keyboard: [
                     [{ text: "✅ Vérifiez", callback_data: `verify_${ctx.from.id}` }]
@@ -114,30 +117,32 @@ bot.command("channel", async (ctx) => {
     console.log(ctx.message.reply_to_message.forward_origin.chat.id)
 })
 
-// bot.command("ads", async (ctx) => {
-//     const command = ctx.message.text;
-//     const payload = command.slice(5).trim()
+bot.command("ads", async (ctx) => {
+    const command = ctx.message.text;
+    const payload = command.slice(5).trim()
 
-//     const ads = await fsPromises.readFile(path.join(process.cwd(), "/config/channels.json"), "utf-8");
-//     const adsArr = JSON.parse(ads);
+    const ads = await fsPromises.readFile(path.join(process.cwd(), "./config/channels.js"), "utf-8");
+    const adsArr = JSON.parse(ads);
 
-//     if (!payload) {
-//         const adsList = adsArr.reduce((prev, link) => prev + `👉 ${link}\n`, "");
+    if (!payload) {
+        const adsList = adsArr.reduce((prev, link) => prev + `👉 ${link}\n`, "");
 
-//         await ctx.reply(adsList)
+        await ctx.reply(adsList)
 
-//         return;
-//     }
+        return;
+    }
 
-//     if (!payload.startsWith("https") || !payload.includes("t.me")) {
-//         await ctx.reply("Wrong Format");
-//     }
+    if (!payload.startsWith("https") || !payload.includes("t.me")) {
+        await ctx.reply("Wrong Format");
 
-//     adsArr[2] = payload;
+        return;
+    }
 
-//     await fsPromises.writeFile(path.join(process.cwd(), "/config/channels.json"), JSON.stringify(adsArr), { encoding: "utf-8" })
-//     await ctx.reply("Ads updated ✅");
-// })
+    adsArr[2] = payload;
+
+    await fsPromises.writeFile(path.join(process.cwd(), "./config/channels.js"), JSON.stringify(adsArr), { encoding: "utf-8" })
+    await ctx.reply("Ads updated ✅");
+})
 
 bot.on(message("text"), async (ctx) => {
     const text = ctx.message.text;
@@ -465,6 +470,7 @@ bot.on(message("text"), async (ctx) => {
 })
 
 bot.on("chat_join_request", async (ctx) => {
+    return
     const taskId = await prisma.task.findFirst({
         where: {
             chatId: ctx.chatJoinRequest.chat.id.toString()
@@ -627,3 +633,8 @@ bot.catch(handleError);
 app.listen(process.env.PORT || 3000, () => {
     console.log("Ready")
 })
+
+// bot.launch(() => {
+//     console.log("Started")
+//     bot.telegram.sendMessage("1782278519", "Hello")
+// })

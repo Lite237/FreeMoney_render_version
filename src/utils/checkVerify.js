@@ -1,8 +1,8 @@
 // import channels from "../config/channels.json" assert { type: 'json' };
 
 export async function accountValid(ctx) {
-    // const channels = [-1002012624574];
-    const channels = [-1002103961483, -1002083230486, -1002109950587];
+    const channels = [-1002012624574];
+    // const channels = [-1002103961483, -1002083230486, -1002109950587];
 
     const result = await channels.reduce(async (statPromise, channelId) => {
         const stat = await statPromise;
