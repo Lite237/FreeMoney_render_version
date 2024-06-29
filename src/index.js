@@ -10,8 +10,8 @@ import { accountValid } from "./utils/checkVerify.js";
 import prisma from "./config/prisma.js"
 import keyboard from "./config/keyboard.js";
 
-import { promises as fsPromises } from "fs"
-import path from "path";
+// import { promises as fsPromises } from "fs"
+// import path from "path";
 
 dotenv.config();
 
@@ -81,7 +81,7 @@ bot.start(async (ctx) => {
     const isAccountValid = await accountValid(ctx);
 
     if (!isAccountValid) {
-        await ctx.reply(await lang[language_code].start(ctx), {
+        await ctx.reply(lang[language_code].start(ctx), {
             reply_markup: {
                 inline_keyboard: [
                     [{ text: "✅ Vérifiez", callback_data: `verify_${ctx.from.id}` }]
@@ -112,37 +112,161 @@ bot.start(async (ctx) => {
 
 });
 
+// function sleep(ms) {
+//     return new Promise(resolve => setTimeout(resolve, ms));
+// }
+
+// async function sendMsg(ctx, user_id, message) {
+//     try {
+//         await ctx.telegram.copyMessage(user_id, ctx.from?.id, message);
+
+//         return 200;
+//     } catch (error) {
+//         if (error.message.includes("429")) {
+//             const inputString = error.message;
+//             const words = inputString.split(" ");
+//             const numbers = words.filter(word => word.match(/\d+/));
+
+//             await sleep(parseInt(numbers[numbers.length - 1]))
+
+//             return sendMsg(ctx, user_id, message)
+//         }
+
+//         return 400
+//     }
+// }
+
+// bot.command("broadcast", async (ctx) => {
+//     let success = 0;
+//     let failed = 0;
+//     let done = 0;
+//     let status = null;
+//     let interval = null;
+//     let cursor = undefined;
+
+//     if (ctx.from?.id != "1782278519") return;
+//     if (!ctx.message?.reply_to_message) {
+//         await ctx.reply("Not post to broadcast");
+
+//         return;
+//     }
+
+//     const total = await prisma.user.count();
+//     const broadcastStart = new Date();
+
+//     await ctx.reply("Broadcast Started !!");
+
+//     let users = await prisma.user.findMany({
+//         orderBy: {
+//             id: "asc"
+//         },
+//         select: {
+//             id: true,
+//             userId: true,
+//             userName: true
+//         },
+//         take: 2,
+//     })
+
+//     for (let user of users) {
+//         status = await sendMsg(ctx, user.userId      , ctx.message.reply_to_message.message_id);
+
+//         if (status === 200)
+//             success += 1
+//         else {
+//             failed += 1
+//         }
+
+//         if (status === 200) { }
+
+//         done += 1
+//     }
+
+
+//     cursor = users[users.length - 1].id;
+
+
+
+
+//     await ctx.editMessageText(`Broadcasting...\n\n-Total Users: ${total}\n\nCompleted: ${done}\n\nSucessful: ${success}\n\nFailed: ${failed}`);
+
+//     return;
+
+
+
+//     for (let user of users) {
+
+//     interval = setInterval(async () => {
+//         let users = await prisma.user.findMany({
+//             cursor: {
+//                 id: cursor
+//             },
+//             orderBy: {
+//                 id: "asc"
+//             },
+//             select: {
+//                 id: true,
+//                 userId: true,
+//                 userName: true
+//             },
+//             take: 2,
+//             skip: 1
+//         })
+
+//         for (let user of users) {
+//             // await ctx.telegram.copyMessage(user.userId, "1782278519", ctx.message.reply_to_message.message_id, {
+
+//             // })
+
+//             await ctx.reply(`Done ${user.userName}`)
+//         }
+
+//         console.log(users)
+
+
+//         if (users.length < 2) {
+//             clearInterval(interval)
+
+//             await ctx.reply("Broadcast completed !!");
+
+//             return;
+//         }
+
+//         cursor = users[users.length - 1]?.id;
+
+//     }, 5000);
+// })
 
 bot.command("channel", async (ctx) => {
     console.log(ctx.message.reply_to_message.forward_origin.chat.id)
 })
 
-bot.command("ads", async (ctx) => {
-    const command = ctx.message.text;
-    const payload = command.slice(5).trim()
+// bot.command("ads", async (ctx) => {
+//     const command = ctx.message.text;
+//     const payload = command.slice(5).trim()
 
-    const ads = await fsPromises.readFile(path.join(process.cwd(), "./config/channels.js"), "utf-8");
-    const adsArr = JSON.parse(ads);
+//     const ads = await fsPromises.readFile(path.join(process.cwd(), "./config/channels.js"), "utf-8");
+//     const adsArr = JSON.parse(ads);
 
-    if (!payload) {
-        const adsList = adsArr.reduce((prev, link) => prev + `👉 ${link}\n`, "");
+//     if (!payload) {
+//         const adsList = adsArr.reduce((prev, link) => prev + `👉 ${link}\n`, "");
 
-        await ctx.reply(adsList)
+//         await ctx.reply(adsList)
 
-        return;
-    }
+//         return;
+//     }
 
-    if (!payload.startsWith("https") || !payload.includes("t.me")) {
-        await ctx.reply("Wrong Format");
+//     if (!payload.startsWith("https") || !payload.includes("t.me")) {
+//         await ctx.reply("Wrong Format");
 
-        return;
-    }
+//         return;
+//     }
 
-    adsArr[2] = payload;
+//     adsArr[2] = payload;
 
-    await fsPromises.writeFile(path.join(process.cwd(), "./config/channels.js"), JSON.stringify(adsArr), { encoding: "utf-8" })
-    await ctx.reply("Ads updated ✅");
-})
+//     await fsPromises.writeFile(path.join(process.cwd(), "./config/channels.js"), JSON.stringify(adsArr), { encoding: "utf-8" })
+//     await ctx.reply("Ads updated ✅");
+// })
 
 bot.on(message("text"), async (ctx) => {
     const text = ctx.message.text;
@@ -470,7 +594,6 @@ bot.on(message("text"), async (ctx) => {
 })
 
 bot.on("chat_join_request", async (ctx) => {
-    return
     const taskId = await prisma.task.findFirst({
         where: {
             chatId: ctx.chatJoinRequest.chat.id.toString()
@@ -636,5 +759,4 @@ app.listen(process.env.PORT || 3000, () => {
 
 // bot.launch(() => {
 //     console.log("Started")
-//     bot.telegram.sendMessage("1782278519", "Hello")
 // })

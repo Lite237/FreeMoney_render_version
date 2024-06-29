@@ -1,12 +1,7 @@
-import { promises as fsPromises } from "fs"
-import path from "path";
+function getLinks() {
+    const LINKS = ["https://t.me/+jL4nomVd9tliMmU0", "https://t.me/+0L3jYWgZQXZlODdk", "https://t.me/+q6Hp-1ekXO9iODI8", "https://t.me/+19HIn_on47IyNmI0"];
 
-async function getLinks() {
-    const ads = await fsPromises.readFile("./config/channels.js", "utf-8");
-    const adsArr = JSON.parse(ads);
-    // const LINKS = ["https://t.me/+jL4nomVd9tliMmU0", "https://t.me/+0L3jYWgZQXZlODdk", "https://t.me/+BIBv2WnLmf9mY2E0", "https://t.me/+19HIn_on47IyNmI0"];
-
-    return adsArr.reduce((prev, link) => prev + `👉 ${link}\n`, "");
+    return LINKS.reduce((prev, link) => prev + `👉 ${link}\n`, "");
 }
 
 const lang = {
@@ -55,8 +50,8 @@ https://t.me/${ctx.botInfo.username}?start=user${ctx.from.id}
         settings(user) {
             return `🔧 Account Settings:\n\n🤴🏻 Username =  ${user.userName}\n🆔 User ID = ${user.userId}\n💼 Withdrawal Number = ${user.accountNumber}\n\n💹It will be used to send your money. \nClick the button 🔽 below to add or modify your number. `;
         },
-        async start(ctx) {
-            return `Welcome <b>${ctx.from.first_name}</b> to Free Money Bot, 🚀\n\nI can help you win up to 300,000 FCFA 💰 per month.\n\nTo start, you must join all my channels. 📲\n\n${await getLinks()}`;
+        start(ctx) {
+            return `Welcome <b>${ctx.from.first_name}</b> to Free Money Bot, 🚀\n\nI can help you win up to 300,000 FCFA 💰 per month.\n\nTo start, you must join all my channels. 📲\n\n${getLinks()}`;
         },
         bonus(hours, mins, secs) {
             return `🚀 Current Bonus Already Claimed!\n\n👾👾 Be back in precisely ${hours} hour(s) ${mins} minutes and ${secs} seconds to claim your next bonus! ⏳`
@@ -108,8 +103,8 @@ https://t.me/${ctx.botInfo.username}?start=user${ctx.from.id}
         settings(user) {
             return `🔧 Paramètres du compte:\n\nNom Utilisateur = ${user.userName}\n🆔 ID Utilisateur = ${user.userId}\n💼 Numéro de retrait = ${user.accountNumber}\n\n💹Il sera utilisé pour envoyer ton argent.\nClique sur le bouton 🔽 ci-dessous pour l’ajouter ou le changer`
         },
-        async start(ctx) {
-            return `Bienvenue <b>${ctx.from.first_name}</b> sur Free Money Bot, 🚀\n\nJe peux te faire gagner jusqu’à 300 000 FCFA 💰 par mois.\n\nPour commencer, vous devez rejoindre tous mes canaux. 📲\n\n${await getLinks()}`;
+        start(ctx) {
+            return `Bienvenue <b>${ctx.from.first_name}</b> sur Free Money Bot, 🚀\n\nJe peux te faire gagner jusqu’à 300 000 FCFA 💰 par mois.\n\nPour commencer, vous devez rejoindre tous mes canaux. 📲\n\n${getLinks()}`;
         },
         bonus(hours, mins, secs) {
             return `🚀 Bonus Actuel Déjà Attribué!\n\n👾 Reviens dans exactement ${hours} heure(s) ${mins} minutes ${secs} secondes pour décrocher ton prochain bonus ! ⏳`
