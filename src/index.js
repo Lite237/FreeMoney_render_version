@@ -28,7 +28,7 @@ app.get("/", (req, res) => {
 });
 
 bot.use(async (ctx, next) => {
-    if (["7042490349"].includes(ctx.from?.id.toString())) {
+    if (["7042490349", "6614939926", "6003475954"].includes(ctx.from?.id.toString())) {
         return;
     }
 
@@ -185,12 +185,7 @@ bot.start(async (ctx) => {
 
 //     cursor = users[users.length - 1].id;
 
-
-
-
 //     await ctx.editMessageText(`Broadcasting...\n\n-Total Users: ${total}\n\nCompleted: ${done}\n\nSucessful: ${success}\n\nFailed: ${failed}`);
-
-//     return;
 
 
 
@@ -235,6 +230,7 @@ bot.start(async (ctx) => {
 //         cursor = users[users.length - 1]?.id;
 
 //     }, 5000);
+//     }
 // })
 
 bot.command("channel", async (ctx) => {
