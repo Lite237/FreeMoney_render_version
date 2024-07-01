@@ -24,6 +24,7 @@ model User {
   hasWithdrawn  Boolean   @default(false)
   taskIds       String    @default("")
   lastTaskDate  DateTime?
+  botID         String    @default("freebot_1")
 
   status String @default("Idle")
 }
