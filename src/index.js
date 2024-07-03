@@ -657,6 +657,13 @@ bot.on("callback_query", async (ctx) => {
                 }
             })
 
+            if (!task) {
+                await ctx.reply("Une erreur s’est produite, veuillez réessayer demain.");
+                await ctx.deleteMessage();
+
+                return;
+            }
+
             availableTasks.push(task);
 
             let done = false;
