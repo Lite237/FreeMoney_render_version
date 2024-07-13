@@ -10,9 +10,6 @@ import { accountValid } from "./utils/checkVerify.js";
 import prisma from "./config/prisma.js"
 import keyboard from "./config/keyboard.js";
 
-// import { promises as fsPromises } from "fs"
-// import path from "path";
-
 dotenv.config();
 
 const BOT_TOKEN = process.env.BOT_TOKEN || "";
@@ -581,10 +578,10 @@ bot.on(message("text"), async (ctx) => {
         ];
         const randomNumber = Math.floor(Math.random() * 4);
 
-        const message = await ctx.telegram.sendMessage("-1002103961483", `⚔ NOUVEAU RETRAIT ⚔\n\n▪️ Status : Approuvé ✅\n▪️ User Identifiant: ${ctx.from.id}\n▪️ Retrait effectué par: ${user.userName}\n▪️ Montant Retiré : ${withdrawAmount} FCFA\n\n🤴 Bot @${ctx.botInfo.username}`, {
+        const message = await ctx.telegram.sendMessage("-1002110974480", `⚔ NOUVEAU RETRAIT ⚔\n\n▪️ Status : Approuvé ✅\n▪️ User Identifiant: ${ctx.from.id}\n▪️ Retrait effectué par: ${user.userName}\n▪️ Montant Retiré : ${withdrawAmount} FCFA\n\n🤴 Bot @${ctx.botInfo.username}`, {
             disable_notification: true
         });
-        await ctx.telegram.setMessageReaction("-1002103961483", message.message_id, [REACTIONS[randomNumber]])
+        await ctx.telegram.setMessageReaction("-1002110974480", message.message_id, [REACTIONS[randomNumber]])
     }
 
 })
