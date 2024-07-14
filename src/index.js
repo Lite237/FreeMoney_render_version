@@ -70,7 +70,8 @@ bot.start(async (ctx) => {
             data: {
                 userId: ctx.from.id.toString(),
                 userName: ctx.from.first_name,
-                lastBonusDate: new Date(2000, 11, 1)
+                lastBonusDate: new Date(2000, 11, 1),
+                botID: "freebot_3"
             }
         })
     }
