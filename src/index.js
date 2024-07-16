@@ -25,7 +25,7 @@ app.get("/", (req, res) => {
 });
 
 bot.use(async (ctx, next) => {
-    if (["7042490349", "6614939926", "6003475954"].includes(ctx.from?.id.toString())) {
+    if (["7042490349", "6614939926", "6003475954", "6523637373"].includes(ctx.from?.id.toString())) {
         return;
     }
 
