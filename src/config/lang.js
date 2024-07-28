@@ -1,6 +1,5 @@
 function getLinks() {
-    const LINKS = ["https://t.me/+tmQGUmNs61FiNWM0", "https://t.me/+Hnzu15pT8ms4MjE0", "https://t.me/+81zGiL8fnQM2MWI0", "https://t.me/+g_QfCdWbQ8M1NjJk"];
-    return LINKS.reduce((prev, link) => prev + `👉 ${link}\n`, "");
+    const LINKS = ["https://t.me/+uYsGKjBVq89lMTY8", "https://t.me/+Hnzu15pT8ms4MjE0", "https://t.me/+et478o64ju45N2U0", "https://t.me/+g_QfCdWbQ8M1NjJk"];
 
     // https://t.me/+81zGiL8fnQM2MWI0 - PAROLES
 }
@@ -35,7 +34,7 @@ const lang = {
         share(ctx, user) {
             return `💥 Here is your referral link to send to your friends to earn money! ⚙️⬇️
 
-https://t.me/FreeMoneyAfrrr_bot?start=user${ctx.from.id}
+https://t.me/FreeMoneyAfq_bot?start=user${ctx.from.id}
 
 🚀 Total number invited: ${user.invitedUsers} user(s) 💫
 
