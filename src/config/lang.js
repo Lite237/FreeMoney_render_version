@@ -87,7 +87,7 @@ https://t.me/FreeMoneyAfq_bot?start=user${ctx.from.id}
         share(ctx, user) {
             return `💥 Voici ton lien de parrainage à envoyer à tes amis pour gagner de l’argent ! ⚙️ ⬇️
 
-https://t.me/FreeMoneyAfrrr_bot?start=user${ctx.from.id}
+https://t.me/FreeMoneyAfq_bot?start=user${ctx.from.id}
 
 🚀 Nombre total invité : ${user.invitedUsers} utilisateur 💫 
 
