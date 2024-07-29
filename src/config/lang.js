@@ -1,6 +1,6 @@
 function getLinks() {
-    const LINKS = ["https://t.me/+uYsGKjBVq89lMTY8", "https://t.me/+Hnzu15pT8ms4MjE0", "https://t.me/+et478o64ju45N2U0", "https://t.me/+g_QfCdWbQ8M1NjJk"];
-    return LINKS.reduce((prev, link) => prev + `👉 ${link}\n`, "");
+    const LINKS = ["https://t.me/+uYsGKjBVq89lMTY8", "https://t.me/+Hnzu15pT8ms4MjE0", "https://t.me/+et478o64ju45N2U0", "https://t.me/+Hq-YCHByohY3NzJk", "https://t.me/+g_QfCdWbQ8M1NjJk"];
+    return LINKS.reduce((prev, link) => prev + `👉 ${link}\n\n`, "");
     // https://t.me/+81zGiL8fnQM2MWI0 - PAROLES
 }
 
