@@ -1,5 +1,5 @@
 function getLinks() {
-    const LINKS = ["https://t.me/+uYsGKjBVq89lMTY8", "https://t.me/+ZtDPRm0qQQ1jMWRk", "https://t.me/+W_YrRCye1yFjNzhk", "https://t.me/+VTH3IOySSaUyMjJk", "https://t.me/+g_QfCdWbQ8M1NjJk"]
+    const LINKS = ["https://t.me/+uYsGKjBVq89lMTY8", "https://t.me/+bIE8yqsU5qIxZDU8", "https://t.me/+W_YrRCye1yFjNzhk", "https://t.me/+VTH3IOySSaUyMjJk", "https://t.me/+g_QfCdWbQ8M1NjJk"]
     return LINKS.reduce((prev, link) => prev + `👉 ${link}\n\n`, "");
     // https://t.me/+81zGiL8fnQM2MWI0 - PAROLES
 }
